@@ -22,8 +22,8 @@ evalMachine={
 	build:function(){
 		// build eval machine here
 		console.log('building eval machine ...')
-		this.connect=function(id){
-
+		this.connect=function(uid){
+			evalMachine.channel = new DataChannel(uid);
 		}
 
 	}
@@ -31,8 +31,8 @@ evalMachine={
 
 
 
-if(!window.DataChannel){ // make sure DataChennal is loaded first
-	evalMachine.load('https://www.webrtc-experiment.com/DataChannel.js',function(){
+if(!window.Peer){ // make sure DataChennal is loaded first
+	evalMachine.load('//cdn.peerjs.com/latest/peer.min.js',function(){
 		evalMachine.build();
 	})
 } else {
