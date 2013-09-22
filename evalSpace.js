@@ -1,6 +1,8 @@
-console.log('evalMachine loaded');
+console.log('evalSpace loaded');
 
-evalMachine={
+evalSpace={
+
+	consoleLog:true,
 
 	uid:function(prefix){
 		if(!prefix){prefix='UID'}
@@ -58,20 +60,20 @@ evalMachine={
 		// get connection specs
 		this.APIkey='u5ouack7vtkgwrk9'; // defaul APIkey, change it before connecting if you want to use a different one
 		this.connect=function(APIkey,uid){
-			if(!!APIkey){evalMachine.APIkey=APIkey};
-			if(!uid){uid=evalMachine.uid('evalMachine')};
-			evalMachine.id=uid;
-			evalMachine.peer = new Peer(uid,{key: evalMachine.APIkey});
+			if(!!APIkey){evalSpace.APIkey=APIkey};
+			if(!uid){uid=evalSpace.uid('evalSpace')};
+			evalSpace.id=uid;
+			evalSpace.peer = new Peer(uid,{key: evalSpace.APIkey});
 
 			// give it a second or two and check if it is connected
 			setTimeout(function(){
-					//console.log('connected: ',evalMachine.peer.isConnected()); // this is assynchronous
+					//console.log('connected: ',evalSpace.peer.isConnected()); // this is assynchronous
 					
-					if(evalMachine.peer.isConnected()){// then this is the SUBMITTER
-						evalMachine.role='submitter';
+					if(evalSpace.peer.isConnected()){// then this is the SUBMITTER
+						evalSpace.role='submitter';
 
 						// listen to callBacks from evaluators
-						evalMachine.peer.on('connection', function(conn) {
+						evalSpace.peer.on('connection', function(conn) {
 							conn.on('data', function(data){
 								console.log(data.id+' < '+data.Y);
 								//console.log('received: ',data);
@@ -80,30 +82,34 @@ evalMachine={
 
 
 						// evaluate function
-						evalMachine.evaluate=function(data,evaluator){
+						evalSpace.evaluate=function(data,evaluator){
 							if(typeof(data)=='string'){
 								data={
-									id:evalMachine.uid('id'),
+									id:evalSpace.uid('id'),
 									X:data
 								}
 							}
 							// list of evaluators
-							var evs=Object.getOwnPropertyNames(evalMachine.peer.connections);	
+							var evs=Object.getOwnPropertyNames(evalSpace.peer.connections);	
 							// if evaluator was selected by its position in the list of connections
 							if(typeof(evaluator)=='number'){
-								evaluator=evalMachine.peer.connections[evs[evaluator]].peerjs;
+								evaluator=evalSpace.peer.connections[evs[evaluator]].peerjs;
 							}
 							// if no evaluator was specified pick one randomly
 							if(!evaluator){
 								if(evs.length==0){error('no connections were found')}
 								else{
 									var i = Math.floor(Math.random()*evs.length);
-									evaluator=evalMachine.peer.connections[evs[i]].peerjs;
+									evaluator=evalSpace.peer.connections[evs[i]].peerjs;
 								}
 							}
 							// ready to send
 							evaluator.send(data);
-							console.log(data.id+' > '+data.X);
+
+							if(consoleLog){
+								console.log(data.id+' > '+data.X);
+							}
+							
 
 							return data.id; // return id of call
 
@@ -111,12 +117,12 @@ evalMachine={
 					} 
 					
 					else {
-						evalMachine.role='evaluator';
+						evalSpace.role='evaluator';
 						// connect again, now as an evaluator
-						var uid = evalMachine.uid('evaluator');
-						evalMachine.peer = new Peer(uid,{key: evalMachine.APIkey});
-						evalMachine.callBack = evalMachine.peer.connect(evalMachine.id); // give notice to submitter
-						evalMachine.callBack.on('data',function(data){
+						var uid = evalSpace.uid('evaluator');
+						evalSpace.peer = new Peer(uid,{key: evalSpace.APIkey});
+						evalSpace.callBack = evalSpace.peer.connect(evalSpace.id); // give notice to submitter
+						evalSpace.callBack.on('data',function(data){
 							console.log(data.id+' < '+data.X);
 							try {
 								data.Y = eval(data.X);
@@ -126,16 +132,22 @@ evalMachine={
 								data.A = err;
 								data.err = true;
 							}
-							console.log(data.id+' > '+data.Y);
+
+							if(consoleLog){
+								console.log(data.id+' > '+data.Y);
+							}
+
 							//console.log('evaled data: ',data);
-							evalMachine.callBack.send(data);
+							evalSpace.callBack.send(data);
 
 						});
 					};
 					
-					console.log('role: ',evalMachine.role);
-					if(evalMachine.role=='submitter'){
-						console.log('Evaluators: evalMachine.connect("'+evalMachine.APIkey+'","'+evalMachine.id+'")');
+					console.log('role: ',evalSpace.role);
+					if(evalSpace.role=='submitter'){
+						if(consoleLog){
+							console.log('Evaluators: evalSpace.connect("'+evalSpace.APIkey+'","'+evalSpace.id+'")');
+						}
 					}
 				}
 			,1000)
@@ -150,25 +162,9 @@ evalMachine={
 
 
 if(!window.Peer){ // make sure DataChennal is loaded first
-	evalMachine.load('//cdn.peerjs.com/latest/peer.min.js',function(){
-		evalMachine.buildThis();
+	evalSpace.load('//cdn.peerjs.com/latest/peer.min.js',function(){
+		evalSpace.buildThis();
 	})
 } else {
-	evalMachine.build();
+	evalSpace.build();
 }
-
-
-
-
-/*
-// make sure PUBNUB libraries are loaded
-if(!window.PUBNUB){
-	evalMachine.load('https://cdn.pubnub.com/pubnub.min.js',function(){
-		evalMachine.load('https://rawgithub.com/pubnub/webrtc/master/src/webrtc-beta-pubnub.js',function(){
-			evalMachine.build();
-		})
-	})
-} else {
-	evalMachine.build();
-}
-*/
