@@ -5,7 +5,7 @@ This is a [WebRTC](http://www.webrtc.org/) experiment to find out the feasibilit
 
 <i>Karpievitch YV, Almeida JS (2006) mGrid: a load-balanced distributed computing environment for the remote execution of the user-defined Matlab code. BMC Bioinformatics 7:139 [PMID:16539707](http://www.ncbi.nlm.nih.gov/pubmed/16539707).</i>
 
-Please note this is an experiment, for a more serious, robust, and scalable approach to browser based high performance computing (HPC) see instead [Sean Wilkinson's QMachine](https://www.qmachine.org/). Note also that EvalSpace uses [PeerJS](http://peerjs.com/) webRTC signaling server ( <b>thank you :-) !</b> ) where [free API keys](http://peerjs.com/peerserver) can be generated for up to 50 connections at a time.
+Please note this is just an experiment, for a more serious, robust, and scalable approach to browser based high performance computing (HPC) see instead [Sean Wilkinson's QMachine](https://www.qmachine.org/). Note also that EvalSpace uses [PeerJS](http://peerjs.com/) webRTC signaling server ( <b>thank you :-) !</b> ) where [free API keys](http://peerjs.com/peerserver) can be generated for up to 50 connections at a time.
 
 ## Experiments
 
