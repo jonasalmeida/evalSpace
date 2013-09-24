@@ -9,7 +9,7 @@ Please note this is an experiment, for a more serious, robust, and scalable appr
 
 ## Experiments
 
-*  [Sept23, 2013] **First experiment creating multiple submitters and evaluators: [YouTube](http://www.youtube.com/watch?v=jtLc3RHgp7s).**
+*  [Sept23, 2013] **First experiment creating multiple submitters and evaluators: [YouTube](https://www.youtube.com/watch?v=jtLc3RHgp7s#t=206).**
 * ...
 
 ___
