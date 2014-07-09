@@ -7,7 +7,7 @@ This is a [WebRTC](http://www.webrtc.org/) experiment to find out the feasibilit
 
 Please note this is just an experiment, for a more serious, robust, and scalable approach to browser based high performance computing (HPC) see instead [Sean Wilkinson's QMachine](https://www.qmachine.org/):
 
-<i>Wilkinson S, JS Almeida (2014) QMachine: commodity supercomputing in web browsers. BMC Bioinformatics [PMID:24913605](http://www.ncbi.nlm.nih.gov/pubmed/24913605).<i>   (QMachine.org)[https://www.qmachine.org/].
+<i>Wilkinson S, JS Almeida (2014) QMachine: commodity supercomputing in web browsers. BMC Bioinformatics [PMID:24913605](http://www.ncbi.nlm.nih.gov/pubmed/24913605).<i>   [QMachine.org](https://www.qmachine.org/).
 
 Note also that EvalSpace uses [PeerJS](http://peerjs.com/) webRTC signaling server ( <b>thank you :-) !</b> ) where [free API keys](http://peerjs.com/peerserver) can be generated for up to 50 connections at a time.
 
